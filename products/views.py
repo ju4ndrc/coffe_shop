@@ -18,7 +18,7 @@ def show_products(request,*args,**kwargs):
 
 class ProductFormView(generic.FormView):
     template_name = 'products/add_products.html'
-    from_class = ProductForm
+    form_class = ProductForm
     success_url = reverse_lazy('products_list')
 
     def form_invalid(self, form):
