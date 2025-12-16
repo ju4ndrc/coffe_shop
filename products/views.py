@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from django.views import generic
 
+from django.urls import reverse_lazy
+from products.forms import ProductForm
 from products.models import Product
 
 # Create your views here.
@@ -12,3 +15,12 @@ def show_products(request,*args,**kwargs):
         "products":get_products
     }
     return render(request,"products/products.html",context)
+
+class ProductFormView(generic.FormView):
+    template_name = 'products/add_products.html'
+    from_class = ProductForm
+    success_url = reverse_lazy('products_list')
+
+    def form_invalid(self, form):
+        form.save()
+        return super().form_invalid(form)
