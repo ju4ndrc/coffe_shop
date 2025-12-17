@@ -7,20 +7,22 @@ from products.models import Product
 
 # Create your views here.
 
-def show_products(request,*args,**kwargs):
-    print(args)
-    print(kwargs)
-    get_products = Product.objects.all()
-    context = {
-        "products":get_products
-    }
-    return render(request,"products/products.html",context)
 
 class ProductFormView(generic.FormView):
     template_name = 'products/add_products.html'
     form_class = ProductForm
-    success_url = reverse_lazy('add_product')
+    success_url = reverse_lazy('products_list')
 
     def form_valid(self, form):
         form.save()
+
         return super().form_valid(form)
+
+class ShowProducts(generic.ListView):
+    
+    model = Product
+    template_name = 'products/products.html'
+    context_object_name = 'products'
+
+
+
