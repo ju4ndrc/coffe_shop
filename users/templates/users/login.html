@@ -1,18 +1,18 @@
 {%extends 'base.html'%}
 {%load tailwind_filters%}
 {%block content%}
-    {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {{form|crispy}}
-        <button class="border-2 border-black bg-white px-5 py-3 font-semibold text-black shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0" type="submit">Login</button>
-        
-        
-    </form>
-    <form action="{% url "logout" %}" method="post">
-        {% csrf_token %}
-        <button class="border-2 border-black bg-white px-5 py-3 font-semibold text-black shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0" type="submit">Logout</button>
-    </form>
+<div class="flex min-h-[calc(100vh-4rem)] items-center justify-center">
+    <div class="w-full max-w-md rounded-xl border bg-white p-6 shadow-lg">
+        {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        <form  action="" method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button class="border-2 border-black bg-white px-5 py-3 font-semibold text-black shadow-[4px_4px_0_0] hover:translate-1 hover:shadow-[-1px_-1px_0_0] focus:ring-2 focus:ring-yellow-300 focus:outline-0" type="submit">Login</button>
+            
+            
+        </form>
+    </div>
+</div>    
 {%endblock%}
