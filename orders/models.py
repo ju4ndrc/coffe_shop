@@ -1,6 +1,8 @@
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
+
+from products.models import Product
 # Create your models here.
 
 
@@ -13,4 +15,9 @@ class Order(models.Model):
         return f'Order id {self.id} by {self.user}'
     
 class OrderProduct(models.Model):
-    order = models.ForeignKey(Order)
+    order = models.ForeignKey(Order,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.PROTECT)
+    quantity = models.IntegerField()
+
+    def __str__(self) -> str:
+        return f"{self.order} - {self.product} - {self.quantity}"
