@@ -138,3 +138,5 @@ LOGOUT_REDIRECT_URL = "products_list"
 STATICFILES_DIRS = [
     BASE_DIR/"static"
 ]
+
+LOGIN_URL = "login"
