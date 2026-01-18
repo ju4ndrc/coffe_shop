@@ -89,14 +89,7 @@ WSGI_APPLICATION = 'coffe_shop.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE':'django.db.backends.postgresql',
-        'NAME': env.str('DJANGO_DB_NAME'),
-        'USER': env.str('DJANGO_DB_USER'),
-        'PASSWORD': env.str('DJANGO_DB_PASSWORD'),
-        'HOST': env.str('DJANGO_DB_HOST'),
-        'PORT': env.str('DJANGO_DB_PORT'),   
-    }
+    'default': env.db('SUPABASE_DB_URL')
 }
 
 

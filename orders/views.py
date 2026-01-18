@@ -1,7 +1,8 @@
 from django.urls import reverse_lazy
 from django.views.generic import DetailView,CreateView
-
+from django.views import generic
 from orders.forms import OrderProductForm
+from products.models import Product
 from .models import Order
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
@@ -13,6 +14,11 @@ class MyOrderView(LoginRequiredMixin,DetailView):
 
     def get_object(self, queryset = None):
         return Order.objects.filter(is_active = True, user = self.request.user).first()
+    
+class ProductListView(generic.ListView):
+    model = Product
+    template_name = 'products/product.html'   
+    context_object_name = 'products'
     
 class CreateOrderProductView(LoginRequiredMixin,CreateView):
     template_name = "orders/create_order_product.html"
