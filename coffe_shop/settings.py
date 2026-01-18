@@ -12,11 +12,14 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 from pathlib import Path
+import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
+#db_credentials
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR,'.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'crispy_tailwind',
+    'rest_framework',
     'home',
     'products',
     'users',
@@ -86,8 +90,12 @@ WSGI_APPLICATION = 'coffe_shop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE':'django.db.backends.postgresql',
+        'NAME': env.str('DJANGO_DB_NAME'),
+        'USER': env.str('DJANGO_DB_USER'),
+        'PASSWORD': env.str('DJANGO_DB_PASSWORD'),
+        'HOST': env.str('DJANGO_DB_HOST'),
+        'PORT': env.str('DJANGO_DB_PORT'),   
     }
 }
 
@@ -140,3 +148,11 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = "login"
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
